@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Raw audio files
+*.wav
+*.ogg
+*.mp3
+*.aiff
