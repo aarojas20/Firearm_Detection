@@ -133,3 +133,6 @@ dmypy.json
 *.ogg
 *.mp3
 *.aiff
+
+# Omit large data files
+*.csv
