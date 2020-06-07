@@ -1,0 +1,16 @@
+name: add_librosa
+channels:
+- conda-forge
+dependencies:
+- python=3.7
+- conda
+- librosa
+- matplotlib
+- numpy
+- pandas
+- scipy
+- scikit-learn
+- tensorflow
+- pip
+- pip:
+  - streamlit
