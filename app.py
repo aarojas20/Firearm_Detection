@@ -5,7 +5,7 @@ import pickle
 
 # load the model from disk
 model_path="models/"
-log_res_model="logistic_regression_model.sav"
+log_res_model="logistic_regression_model.pickle"
 loaded_model = pickle.load(open(model_path+log_res_model, 'rb'))
 #result = loaded_model.score(X_test, Y_test)
 #print(result)
