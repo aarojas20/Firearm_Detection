@@ -1,4 +1,4 @@
 streamlit==0.60
 numpy==1.18
-librosa @ file:///home/conda/feedstock_root/build_artifacts/librosa_1589637780338/work
+librosa==0.6.1
 pickleshare==0.7.5
