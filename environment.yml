@@ -9,7 +9,6 @@ dependencies:
 - numpy
 - pandas
 - scipy
-- scikit-learn
 - tensorflow
 - pip
 - pip:
