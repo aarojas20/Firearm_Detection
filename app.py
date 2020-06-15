@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 import librosa
 
 import sounddevice as sd
-import soundfile as sf
+#import soundfile as sf
 import matplotlib.pyplot as plt
 
 #-------------------------------------------------
