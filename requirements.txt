@@ -2,7 +2,7 @@ streamlit==0.60
 numpy==1.18
 numba==0.48.0
 matplotlib==3.2.1
-libportaudio2 
+portaudio2==19.6 
 librosa==0.6.1
 tensorflow==1.15.2
 sounddevice==0.3.15
