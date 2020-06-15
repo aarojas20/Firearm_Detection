@@ -1,19 +1,33 @@
 import streamlit as st
 import numpy as np
-#import tensorflow
 from tensorflow.keras.models import load_model
 import librosa
-#import pickle
+
+import sounddevice as sd
+import soundfile as sf
+import matplotlib.pyplot as plt
+
+#-------------------------------------------------
+st.title('Firearm Alarm')
+st.header('Listening for Firearms in Your Home')
+st.text('For how long would you like Firearm Alarm to listen?')
+t=st.slider('Select the time (hours).',min_value=1,max_value=24,step=1)
+
+x = np.arange(0, 48000)/16000
+fig, ax=plt.subplots()
+ax.set_ylim(-1, 1)
+line, = ax.plot(x, np.zeros(48000),color='m',linewidth=2)
+plt.xlabel('Time (s)')
+plt.ylabel('Sound Wave')
+the_plot = st.pyplot(plt)
 
 # load the model from disk
 model_path="models/"
 cnn_model=load_model(model_path+'cnn_model.h5')
 
-#cnn_model_pkl = pickle.load(open(model_path+'cnn_model.pickle', 'rb'))
-#result = loaded_model.score(X_test, Y_test)
-#print(result)
-def wav2mfcc(file_path, n_mfcc=20, max_len=11):
-    wave, sr = librosa.load(file_path, mono=True, sr=None)
+def wav2mfcc(wave, n_mfcc=20, max_len=11):
+    '''wave is a np array'''
+    #wave, sr = librosa.load(file_path, mono=True, sr=None)
     wave = np.asfortranarray(wave[::3])
     mfcc = librosa.feature.mfcc(wave, sr=16000, n_mfcc=n_mfcc)
 
@@ -28,55 +42,39 @@ def wav2mfcc(file_path, n_mfcc=20, max_len=11):
 
     return mfcc
 
-path="data/external/"
-audio_clip1='5-195710-A-10.wav' # ?
-audio_clip2='2-121978-A-29.wav' #?
-audio_clip3='T_17P.wav'
-audio_dict={
-'Audio clip 1':audio_clip1,
-'Audio clip 2': audio_clip2,
-'Audio clip 3': audio_clip3}
+def record(sr=16000, channels=1, duration=3, filename='pred_record.wav'):
+    """
+    Records live voice
+    """
+    recording = sd.rec(int(duration * sr), samplerate=sr, channels=channels).reshape(-1)
+    sd.wait()
 
-st.title('Firearm Alarm')
-st.header('Listening for Firearms in Your Home')
+    line.set_ydata(recording)
+    the_plot.pyplot(plt)
 
-st.text('The following are a set of sample audio clips that can be input into the model.')
+    return recording
 
 
-st.audio(path+audio_clip1)
+if st.button('Start listening with Firearm Alarm'):
+    with st.spinner("Listening..."):
+        for i in range(0,int(t*3600)):
 
+            recording=record()
 
-st.text('This is audio clip 1.')
+            ## run it through the model
+            mfcc=wav2mfcc(recording)
 
-st.audio(path+audio_clip2)
+            X_test = np.reshape(mfcc,(1, 20, 11, 1))
+            Y_predict=cnn_model.predict(X_test)
 
-st.text('This is audio clip 2.')
+            if Y_predict.round()[0][0]==0 :
+                plt.text(0,.8,'All sounds safe.',fontsize=14,color='slateblue')
+                #st.write("All sounds safe.")
 
-st.audio(path+audio_clip3)
+            if Y_predict.round()[0][0]==1:
+                plt.text(.5,.8,'This is a firearm!')
+                #st.write("This is a firearm! Contacting local authorities...")
 
-option = st.selectbox('Select the clip you would like the model to analyze.',('Audio clip 1', 'Audio clip 2', 'Audio clip 3'))
-st.write('You selected:', option)
-
-if st.button('Analyze '+option):
-
-    mfcc=wav2mfcc(path+audio_dict[option])
-    X_test = np.reshape(mfcc,(1, 20, 11, 1))
-    # print(mfcc.shape)
-    # print(X_test.shape)
-    Y_predict=cnn_model.predict(X_test)
-    # print('Y_predict=',Y_predict.round()[0])
-    # print(Y_predict[0].shape)
-    # print(Y_predict[0][0])
-
-    if Y_predict.round()[0][0]==0 :
-
-        st.write("This doesn't sound like a firearm.")
-
-        # print('Not a firearm')
-    if Y_predict.round()[0][0]==1:
-
-        st.write("This is a firearm! Contacting local authorities...")
-
-        # print('A firearm')
+            plt.show()
 else:
-    st.write('Click the button to analyze the audio clip.')
+    st.write('Click the button to start listening.')
