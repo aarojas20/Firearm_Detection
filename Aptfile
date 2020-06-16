@@ -1,1 +1,1 @@
-sudo apt-get install libav-tools
+sudo apt-get install portaudio19-dev
