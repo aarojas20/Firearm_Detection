@@ -1,1 +1,1 @@
-sudo apt-get install libportaudio2
+sudo apt-get install libportaudiocpp0
