@@ -145,7 +145,7 @@ def updateplot(wave):
     the_plot.pyplot(plt)
 
 
-sample='data/external/Cooking_clip.mp3'
+sample='data/external/Cooking_clip.wav'
 if st.button('See an example with Firearm Alarm'):
     with st.spinner("Listening..."):
         array,sr=librosa.load(sample)
