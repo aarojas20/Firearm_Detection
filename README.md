@@ -1,7 +1,15 @@
-Detect_Firearm
+Firearm Alarm
 ==============================
 
-neural network model to detect firearms from audio sound data
+It can take as long as 5-7 minutes for a victim to respond for help in the event of a firearm discharge.
+
+In this project, I aim to build an app that could help listen for firearms.
+The intention is that when a firearm is detected, a notification may be sent to an emergency contact or a first responder.
+
+The app was written in streamlit, and it can stream for live sound with the Sounddevice python library.
+In the future, I would like to rewrite this in flask so that I can query the user's sound (through the user's web page) with MediaDevices.getUserMedia() in javascript.  
+
+The model that I developed was a CNN.  It makes use of publicly available data from the environmental sound classification, and I acquired firearm sounds from multiple sources, such as youtube, freesound, soundbible, mediafire, etc. 
 
 Project Organization
 ------------
