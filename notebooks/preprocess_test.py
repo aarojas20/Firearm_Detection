@@ -1,4 +1,6 @@
-'''The following is from github'''
+'''The following is adapted from Lukas Biewald from WandB--TY to Lukas for sharing his code online. 
+I have made modifications to specify the location of the datasets, remove downsampling of the MFCC spectrograms, remove specification of the sampling rate, and indicate the duration rate'''
+
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
@@ -9,7 +11,7 @@ import tensorflow as tf
 import numpy as np
 from tqdm import tqdm
 
-DATA_PATH_TEST = "../data/raw_test/"
+DATA_PATH_TEST = "../data/test_bal/"
 # Input: Folder Path
 # Output: Tuple (Label, Indices of the labels, one-hot encoded labels)
 def get_labels(path=DATA_PATH_TEST):
