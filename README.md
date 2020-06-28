@@ -9,7 +9,7 @@ The intention is that when a firearm is detected, a notification may be sent to 
 The app was written in streamlit, and it can stream for live sound with the Sounddevice python library.
 In the future, I would like to rewrite this in flask so that I can query the user's sound (through the user's web page) with MediaDevices.getUserMedia() in javascript.  
 
-The model that I developed was a CNN.  It makes use of publicly available data from the environmental sound classification, and I acquired firearm sounds from multiple sources, such as youtube, freesound, soundbible, mediafire, etc. 
+The model that I developed was a CNN.  It makes use of publicly available data from the environmental sound classification, and I acquired firearm sounds from multiple sources, such as youtube, urbansound8k, freesound, soundbible, mediafire, etc. 
 
 Project Organization
 ------------
@@ -18,8 +18,7 @@ Project Organization
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
+    │   ├── external       <- Sound clips used in the app
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
@@ -30,9 +29,7 @@ Project Organization
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's initials, and a short `-` delimited description, e.g.
     │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
+    │    │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
@@ -41,7 +38,6 @@ Project Organization
     │
     ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
     ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── data           <- Scripts to download or generate data
     │   │   └── make_dataset.py
@@ -50,12 +46,9 @@ Project Organization
     │   │   └── build_features.py
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
+    │       │                 predictions
+    │       ├── predict_model.py
+    │       └── train_model.py
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
 
