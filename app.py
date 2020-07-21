@@ -112,7 +112,7 @@ elif page==options[1]: #if the second page is selected
     text=plt.text(0,.8,'',fontsize=14)
 
 
-    sample='data/external/Real_life_gunshot_sound_effects.mp3'
+    sample='data/external/Real_life_gunshot_sound_effects.wav'
     if st.button('See an example with Firearm Alarm'):
         with st.spinner("Listening..."):
             array,sr=librosa.load(sample)
